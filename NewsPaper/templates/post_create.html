@@ -1,0 +1,12 @@
+{% extends 'flatpages/default.html' %}
+ 
+{% block title %} Добавление публикации {% endblock title %}
+ 
+{% block content %}
+<h3>Создание статей и новостей</h3>
+<form method="POST">
+    {% csrf_token %} 
+    {{ form }}
+    <input type="submit" value="Добавить публикацию">
+</form>
+{% endblock content %}

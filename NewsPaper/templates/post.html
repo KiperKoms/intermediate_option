@@ -1,0 +1,27 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+{{ post.title|censor }}
+{% endblock title %}
+
+{% block content %}
+<p>Дата публикации: {{ post.dateCreation|date:'d-m-Y h:m' }}</p>
+<h6>Автор: {{ post.author }}</h6>
+<h6>Категория:
+    {% for c in post.postCategory.values%}
+        <a href="{% url 'category' c.id %}">{{c.categoryName}}</a>
+    {% endfor %}</h6>
+<h3>{{post.text|censor}}</h3>
+<hr>
+
+<hr>
+<form action="{{ post.id }}/delete" target="_blank">
+   <button>Удаление публикациИ</button>
+    </form>
+<form action="{{ post.id }}/edit" target="_blank">
+   <button>Изменение публикации</button>
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,49 @@
+{% extends 'flatpages/default.html' %}
+
+{% load custom_filters %}
+
+{% block title %}
+Поиск публикаций
+{% endblock title %}
+
+{% block filter %}
+    <p>Всего статей и новостей: {{ posts|length }}</p>
+    <form method="GET">
+        {{ filter.form }}
+        <input type="submit" value="Найти">
+    </form>
+{% endblock filter %}
+
+{% block content %}
+    {% if posts %}
+        <table>
+            <tr>
+                <td>
+                    Заголовок
+                </td>
+                <td>
+                    Дата публикации
+                </td>
+                <td>
+                    Содержание
+                </td>
+
+            </tr>
+        {% for post in posts %}
+            <tr>
+                <td>
+                    <a  href="/news/{{ post.id }}">{{ post.title|censor }}</a>
+                </td>
+                <td>
+                    {{ post.dateCreation|date:'d-m-Y' }}
+                </td>
+                <td>
+                    {{ post.text|truncatechars:50|censor }}
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <h2>Новостей нет!</h2>
+    {% endif %}
+{% endblock content %}
